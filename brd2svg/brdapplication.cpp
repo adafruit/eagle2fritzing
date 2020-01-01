@@ -1695,7 +1695,13 @@ void BrdApplication::addSubparts(QDomElement & root, QDomElement & paramsRoot, Q
 			// ADAFRUIT 2016-06-16: MICROBUILDER LIBRARY KLUDGE:
 			// I think all these different names could just be
 			// done in and/all.packages.txt file (using 'map')
-			if((name == "0805-no") || (name == "0805") || (name == "_0805mp") || (name == "c0805") || (name == "r0805")) {
+			if((name == "1608-no") || (name == "1608") || (name == "_1608mp") || (name == "c1608") || (name == "r1608")) {
+				// Rename generic 1608 to resistor or cap as needed,
+				// based on parent element name (starts with 'C' or 'R').
+				QString elementName = package.parentNode().toElement().attribute("name", "").toUpper();
+				if(     elementName[0] == 'C') name = "1608-cap";
+				else if(elementName[0] == 'R') name = "1608-res";
+			} if((name == "0805-no") || (name == "0805") || (name == "_0805mp") || (name == "c0805") || (name == "r0805")) {
 				// Rename generic 0805 to resistor or cap as needed,
 				// based on parent element name (starts with 'C' or 'R').
 				QString elementName = package.parentNode().toElement().attribute("name", "").toUpper();
@@ -1707,6 +1713,8 @@ void BrdApplication::addSubparts(QDomElement & root, QDomElement & paramsRoot, Q
 				QString elementName = package.parentNode().toElement().attribute("name", "").toUpper();
 				if(     elementName[0] == 'C') name = "0603-cap";
 				else if(elementName[0] == 'R') name = "0603-res";
+				else if(elementName[0] == 'L') name = "0603-led-green";
+				else if(elementName[0] == 'F') name = "0603-fuse";
 			} else if(name == "chipled_0805_nooutline") {
 				// Rename generic chip LED to suitable color,
 				// based on parent element value ("RED", "GREEN", etc.).

@@ -205,6 +205,8 @@
 <package name='wifly_gsx' ic='no' />
 <package name='xbee-smd' ic='no' />
 
+<map package='micro_usb_b_1050170001' to='1050170001' />
+<map package='qfn_7mm' to='ufqfpn48' />
 
 <map package='1x01' to='1X01_LOCK' />
 <map package='1x02' to='1X02_LOCK' />
